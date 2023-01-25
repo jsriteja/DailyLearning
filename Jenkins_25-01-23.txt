@@ -1,0 +1,60 @@
+Jenkins:
+
+Jenkin is a java Application
+Jenkins is a powerful application that allows continuous integration and continuous delivery of projects,
+
+Continuous Integration: is a process of integrating code changes from multiple developers in a single project many times.(Or)
+CI - Continuous Integration A process where team members integrate their work continuously in a shared repository  
+Best achieved using some SCM tools like GIT
+Can be daily or as needed Every integration or checkin in the repo is validated by automated build,automated unit or integration tests
+
+Continuous Delivery: is a process, where code changes are automatically built, tested, and prepared for a release to production. I hope you have enjoyed my previous blogs on Jenkins
+
+Blue Ocean: a new user experience for Jenkins and providing an interactive view for Jenkins jobs and pipelines.
+Pipeline:Pipeline is a workflow of group of events or jobs that are chained and interlinked with each other.to write the pipelines we use the Groovy programming language.
+      
+These are two types:
+			1.Scripted Pipeline
+			2.Declarative Pipeline
+
+1.Scripted Pipeline:
+  Node {
+	Def name
+	Stage(‘Build’) {
+		Echo “Building’”
+	}
+	Stage(‘Deploy) {
+		Echo “Deploying”
+	}
+	Stage(‘Test’) {
+		Echo “Testing”
+	}
+ }
+
+2.Declarative Pipeline:
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing'
+            }
+        }
+    }
+}
