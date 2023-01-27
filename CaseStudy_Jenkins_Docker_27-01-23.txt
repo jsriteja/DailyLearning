@@ -1,0 +1,68 @@
+Devops Project with Git,Jenkins and Docker on AWS:
+
+Step:1)Launch an EC2 instance(Linux Machine) for Docker Host(Docker_Server)
+
+Step:2)Install docker on EC2 instance and start services,by using this commands:
+
+$yum install docker
+$service docker start
+
+Step:3)create a new user for Docker management and add him to Docker (default) group
+$useradd dockeradmin
+$passwd dockeradmin
+
+and add the user to the group by using below command
+$usermod -aG docker dockeradmin
+
+Step:4)Write a Docker file under /opt/docker
+mkdir /opt/docker
+
+### vi Dockerfile
+# Pull base image 
+From tomcat:8-jre8 
+
+# Maintainer
+MAINTAINER "jsriteja" 
+
+# copy war file on to container 
+COPY ./webapp.war /usr/local/tomcat/webapps
+
+Step:5)Login to Jenkins console and add Docker server to execute commands from Jenkins:
+Manage Jenkins --> Configure system --> Publish over SSH --> add Docker server and credentials
+
+if it was shown as success 
+
+Step:6)Create Jenkins job(Maven Job)
+
+A) Source Code Management
+Repository : https://github.com/jsriteja/TestProject1.git
+Branches to build : */master
+
+B) Build Root POM: pom.xml
+Goals and options : clean install package
+
+C) send files or execute commands over SSH Name: docker_host
+Source files : webapp/target/*.war
+Remove prefix : webapp/target
+Remote directory : //opt//docker
+Exec command : docker stop teja_demo; 
+		   docker rm -f teja_demo; 
+		   docker image rm -f teja_demo; 
+		   cd /opt/docker; 
+		   docker build -t teja_demo .
+
+D) send files or execute commands over SSH
+Name: docker_host
+Exec command : docker run -d --name teja_demo -p 8090:8080 teja_demo
+
+Login to Docker host and check images and containers. (no images and containers)
+
+Step:7)Execute Jenkins job(click on Build now),if successfully done
+
+Step:8)check images and containers again on Docker host. This time an image and container get creates through Jenkins job
+
+Step:9)Access web application from browser which is running on container <docker_host_Public_IP>:8090/webapp
+
+Step:10)you access your code available in git repo and it was displayed on <docker_host_Public_IP>:8090/webapp
+   
+   and you can make any changes in your code and build it again and check the status.you'll see the updated code on console.
