@@ -1,0 +1,97 @@
+Ansible Topics:
+
+Ansible is simple open source IT engine which automates application deployment, intra service orchestration, 
+cloud provisioning and many other IT tools.
+
+Ansible is easy to deploy because it does not use any agents or custom security infrastructure.
+
+Ansible uses playbook to describe automation jobs, and playbook uses very simple language i.e. YAML
+The picture given below shows the working of Ansible.
+
+Ansible works by connecting to your nodes and pushing out small programs, called "Ansible modules" to them. 
+Ansible then executes these modules (over SSH by default), and removes them when finished. 
+
+Your library of modules can reside on any machine, and there are no servers, daemons, or databases required.
+
+YAML Language:
+Ansible uses YAML syntax for expressing Ansible playbooks. This chapter provides an overview of YAML. 
+Ansible uses YAML because it is very easy for humans to understand, read and write when compared to other data formats like XML and JSON.
+
+Every YAML file optionally starts with “---” and ends with “...”.
+Understanding YAML:
+
+key-value pair
+YAML uses simple key-value pair to represent the data. 
+The dictionary is represented in key: value pair.
+
+Note − There should be space between : and value.
+
+Ex:
+--- #Optional YAML start syntax 
+james: 
+   name: james john 
+   rollNo: 34 
+   div: B 
+   sex: male 
+… #Optional YAML end syntax 
+
+Represents a list:
+---
+countries:  
+   - America 
+   - China 
+   - Canada 
+   - Iceland 
+…
+
+Ansible - Ad hoc Commands:
+
+Ad hoc commands are commands which can be run individually to perform quick functions. These commands need not be performed later.
+
+For example, you have to reboot all your company servers. For this, you will run the Adhoc commands from ‘/usr/bin/ansible’.
+These ad-hoc commands are not used for configuration management and deployment, because these commands are of one time usage.
+ansible-playbook is used for configuration management and deployment.
+
+Ansible Playbooks:
+
+Playbooks are the files where Ansible code is written. Playbooks are written in YAML format. 
+
+YAML stands for Yet Another Markup Language. Playbooks are one of the core features of Ansible and tell Ansible what to execute. 
+They are like a to-do list for Ansible that contains a list of tasks.
+
+Playbooks contain the steps which the user wants to execute on a particular machine. Playbooks are run sequentially. 
+Playbooks are the building blocks for all the use cases of Ansible.
+
+Playbook Structure:
+
+Each playbook is an aggregation of one or more plays in it. Playbooks are structured using Plays. 
+There can be more than one play inside a playbook.
+1.start with --- and end with …
+2.to write the comments with #
+3.members of the list begin with –
+4.key: value pairs
+
+          <key>: <values>
+
+
+Simple Playbook:
+ ---
+-	Name: First playbook pins test
+Hosts: servers
+Tasks:
+-Name: ping test
+  ping  
+ …
+
+
+Ansible Roles:
+
+Roles provide a framework for fully independent, or interdependent collections of variables, tasks, files, templates, and modules.
+
+In Ansible, the role is the primary mechanism for breaking a playbook into multiple files. 
+This simplifies writing complex playbooks, and it makes them easier to reuse. 
+
+The breaking of playbook allows you to logically break the playbook into reusable components.
+
+
+
