@@ -1,0 +1,77 @@
+CI/CD pipeline using GIT, Jenkins & Ansible Using AWS EC2 Service:
+
+
+Step:1 Create a user and enable the password-less authentication in between the ansible-server and ansible client.
+	Login to both servers.and create one user in both the servers and change permission in sudo file for password-less authentication.
+
+Step:2 Add the ansadmin in the both servers
+
+ 
+Step:3 Login to created user and generate a keypair with s
+      	ssh-keygen.
+ 
+Step:4 Copy key to target servers: “ssh-copy-id  <private ip-address>” #ip address of tomcat server(ansible client).
+
+Step:5 You can check connection setup or not by : ssh 172.31.23.148Add tomcat server as hosts in ansible:
+
+  vi /etc/ansible/host
+      [webserver]
+	<private ip-address>
+
+Step:6 Ping to check host available or not:
+       Ansible all –m ping
+
+
+Step:7 Create “copyfile.yml” playbook inside /opt/playbooks/.
+       We need to create a playbook for transferring a file from the ansible server to the ansible client.
+ 
+
+Step:8 Go to Jenkins server.
+      
+      Install “publish over ssh” plugin.
+
+Step:9 Enable connection between Ansible and Jenkins.
+	Manage Jenkins > Configure System > Publish Over SSH > SSH Servers
+	SSH Servers:
+	Hostname:<private-ip-address>
+	username: ansadmin
+	password: *******
+ 
+Step:10 Make a new maven project like ansible _project:
+          Create a Jenkins job, Fill in the following details,
+
+	Source Code Management:
+
+	Repository: https://github.com/sravanthi366/devops_projec_2.git
+	Branches to build : */master
+ 
+
+	Add post-build steps
+
+	Send files or execute commands over SSH
+	SSH Server : ansible
+	Source files: webapp/target/*.war
+	Remote directory: //opt//playbooks
+
+	Add post-build steps
+
+	Send files or execute commands over ssh
+	SSH Server : ansible_server
+	Exec command ansible-playbook /opt/playbooks/copywarfile.yml
+
+ 
+
+Step:11 Build the ansible_project 
+
+Step:12 You can access the Tomcat server in web browser :
+
+ 
+ 
+
+
+
+
+
+
+
+
